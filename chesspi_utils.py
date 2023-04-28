@@ -46,6 +46,8 @@ def construct_dataset(path, label_list):
             xx = np.array([cv2.resize(cv2.imread(file_name), (100,100))])
             x = np.append(x, xx, axis=0)
             y.append(i)
+    x = np.delete(x,0 ,0)
+
     return x, y
 
 
