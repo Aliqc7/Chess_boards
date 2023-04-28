@@ -1,8 +1,8 @@
 import cv2
 import math
 import os
-
-
+import glob
+import numpy as np
 
 def extract_squares_form_starting_position(image_name, image_number):
     piece_list = ["Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook"]
@@ -35,6 +35,20 @@ def crop_image(img, side, ratio_on_each_side):
     cropped_finish = math.floor((1-ratio_on_each_side)*side)
     img = img[cropped_start: cropped_finish, cropped_start: cropped_finish]
     return img
+
+
+def construct_dataset(path, label_list):
+    y = []
+    x = np.empty([1, 100,100,3])
+    for i, label in enumerate(label_list):
+        filelist = glob.glob(f"{path}/{label}/*.jpg")
+        for file_name in filelist:
+            xx = np.array([cv2.resize(cv2.imread(file_name), (100,100))])
+            x = np.append(x, xx, axis=0)
+            y.append(i)
+    return x, y
+
+
 
 
 #extract_squares_form_starting_position("images/chess_board2.jpg", 1)
