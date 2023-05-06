@@ -1,5 +1,4 @@
 import os.path
-
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -40,7 +39,7 @@ board_color_list = [option.text for option in board_color.options]
 if not os.path.exists("boardimages"):
     os.mkdir("boardimages")
 
-if not os.path.exists("last_complete_piece_set.txt"):
+if os.path.exists("last_complete_piece_set.txt"):
     with open("last_complete_piece_set.txt", "r") as f:
         last_saved_piece_set = f.read()
     piece_loop_start_index = piece_style_list.index(last_saved_piece_set) + 1
