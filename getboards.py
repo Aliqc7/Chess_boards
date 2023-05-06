@@ -17,14 +17,18 @@ driver.implicitly_wait(10)
 login_button = driver.find_element(By.CLASS_NAME, "button.auth.login.ui_v5-button-component.ui_v5-button-primary")
 login_button.click()
 user_name = driver.find_element(By.ID, "username")
-user_name.send_keys(input("Enter your username: "))
+user_name.send_keys(os.environ["CHESS_USERNAME"])
 password = driver.find_element(By.ID, "password")
-password.send_keys(input("Enter your password: "))
+password.send_keys(os.environ["CHESS_PASSWORD"])
+board_and_pieces_tag = "a[href = 'https://www.chess.com/settings/board']"
+
 log_in = driver.find_element(By.ID, "login")
 log_in.click()
 settings = driver.find_element(By.CSS_SELECTOR, "span[class = 'icon-font-chess circle-gearwheel'")
 settings.click()
-board_and_pieces = driver.find_element(By.CSS_SELECTOR, "a[href = 'https://www.chess.com/settings/board']")
+
+
+board_and_pieces = driver.find_element(By.CSS_SELECTOR, board_and_pieces_tag)
 board_and_pieces.click()
 
 coordinates = Select(driver.find_element(By.ID, "board_pieces_showCoordinates"))
